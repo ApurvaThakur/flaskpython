@@ -5,19 +5,19 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@ app.route("/login")
+@ app.route("/login",methods=["POST","GET"])
 def login():
     if request.method == "POST":
-       username = request.form["username"]
-       return redirect(url_for("user", user = username))
+       user = request.form.get["name"]
+       return redirect(url_for("user", usr = user))
     else :
        return render_template("login.html")
-
+@ app.route("/<usr>")
 def user(usr):
-    return "<h1>Welcome {usr}</h1>"
+    return "<h1> Welcome {usr}</h1>"
 
 if __name__ == "__main__":
-    app.debug = True
-    host = os.environ.get('IP','0.0.0.0')
-    port = int(os.environ.get('PORT',80))
-    app.run(host=host, port=port)
+    #app.debug = True
+    #host = os.environ.get('IP','0.0.0.0')
+    #port = int(os.environ.get('PORT',80))
+    app.run(debug=True, host='localhost', port=8080)
